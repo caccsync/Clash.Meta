@@ -1,16 +1,15 @@
-//go:build android && cmfa
+//go:build android
 
 package process
 
 import "github.com/metacubex/mihomo/constant"
 
-type PackageNameResolver func(metadata *constant.Metadata) (string, error)
+type PackageNameResolver func(metadata *constant.Metadata)
 
 var DefaultPackageNameResolver PackageNameResolver
 
-func FindPackageName(metadata *constant.Metadata) (string, error) {
+func FindPackageName(metadata *constant.Metadata) {
 	if resolver := DefaultPackageNameResolver; resolver != nil {
-		return resolver(metadata)
+		resolver(metadata)
 	}
-	return "", ErrPlatformNotSupport
 }
