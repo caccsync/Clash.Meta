@@ -4,12 +4,13 @@ package process
 
 import "github.com/metacubex/mihomo/constant"
 
-type PackageNameResolver func(metadata *constant.Metadata)
+type PackageNameResolver func(metadata *constant.Metadata) (string, error)
 
 var DefaultPackageNameResolver PackageNameResolver
 
-func FindPackageName(metadata *constant.Metadata) {
+func FindPackageName(metadata *constant.Metadata) (string, error) {
 	if resolver := DefaultPackageNameResolver; resolver != nil {
-		resolver(metadata)
+		return resolver(metadata)
 	}
+	return "", ErrPlatformNotSupport
 }

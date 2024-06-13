@@ -122,9 +122,8 @@ func ReStartServer(addr string) {
 		Addr:    addr,
 		Handler: router(false, false),
 	}
-
 	go func() {
-		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := server.ListenAndServe(); err != nil {
 			log.Errorln("External controller listen error: %s", err)
 		}
 	}()

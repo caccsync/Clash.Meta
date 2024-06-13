@@ -634,7 +634,12 @@ func match(metadata *C.Metadata) (C.Proxy, C.Rule, error) {
 					metadata.Uid = uid
 				}
 			} else {
-				P.FindPackageName(metadata)
+				pkg, err := P.FindPackageName(metadata)
+				if err != nil {
+					log.Debugln("[Process] find process %s error: %v", metadata.String(), err)
+				} else {
+					metadata.Process = pkg
+				}
 			}
 		}
 
