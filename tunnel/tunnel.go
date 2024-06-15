@@ -288,7 +288,9 @@ func resolveMetadata(metadata *C.Metadata) (proxy C.Proxy, rule C.Rule, err erro
 		return
 	}
 
-	findPackageName(metadata)
+	if findProcessMode.Always() {
+		findPackageName(metadata)
+	}
 
 	switch mode {
 	case Direct:
